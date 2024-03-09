@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main(int argc, char argv[]) {
+int main(int argc, char *argv[]) {
     int rank, size;
 
     MPI_Init(&argc, &argv);
@@ -37,14 +37,14 @@ int main(int argc, char argv[]) {
     int result;
     if (choice == opponent_choice)
         result = 0; // Empate
-    else if ((choice == 0 && opponent_choice == 2)  
-             (choice == 1 && opponent_choice == 0)  
+    else if ((choice == 0 && opponent_choice == 2) || 
+             (choice == 1 && opponent_choice == 0) || 
              (choice == 2 && opponent_choice == 1))
         result = 1; // Vitória
     else
         result = -1; // Derrota
 
-    intresults = new int[size];
+    int *results = new int[size];
     MPI_Gather(&result, 1, MPI_INT, results, 1, MPI_INT, 0, MPI_COMM_WORLD);
 
     if (rank == 0) {
